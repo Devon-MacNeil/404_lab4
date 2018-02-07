@@ -22,13 +22,18 @@ public class TextFileScan extends Operator
 	public void init() throws FileNotFoundException, IOException
 	{
 		// TODO: Assign a new BufferedReader to inFile with the FileManager class
+		inFile = FileManager.openTextInputFile(inFileName); 
+		
 	}
 
 	public Tuple next() throws IOException
 	{
-		Tuple t = null;
+		Tuple t = new Tuple(inputRelation);
 
 		// TODO: YOUR CODE TO CREATE A NEW TUPLE AND READ FROM TEXT FILE HERE
+		if(!t.readText(inFile)){
+			return null;
+		}
 
 		incrementTuplesRead();		
 		incrementTuplesOutput();
@@ -42,6 +47,7 @@ public class TextFileScan extends Operator
 	public void close() throws IOException
 	{
 		// TODO: YOUR CODE HERE TO CLOSE File using FileManager
+		FileManager.closeFile(inFile);
 	}
 }
 
